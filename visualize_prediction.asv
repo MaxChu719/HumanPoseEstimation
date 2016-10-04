@@ -1,9 +1,11 @@
-function visualize_prediction(net, batch)
-imdb = load('imdb_lsp.mat');
+function visualize_prediction(net, imdb, batch)
+imdb = load('im');
 [im, label] = getBatch(imdb, batch);
 
 im_size = size(im, 1);
 batch_size = numel(batch);
+
+net.layers(end) = [];
 
 for b = 1:batch_size
     % Apply the CNN to the larger image
