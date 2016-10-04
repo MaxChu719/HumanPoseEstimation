@@ -13,9 +13,9 @@ net = addCustomLossLayer(net, @l2LossForward, @l2LossBackward) ;
 % Train
 trainOpts.expDir = 'output' ;
 trainOpts.gpus = gpus ;
-trainOpts.batchSize = 128 ;
-trainOpts.learningRate = 0.00025 ;
-trainOpts.weightDecay = 0.0005 ;
+trainOpts.batchSize = 25 ;
+trainOpts.learningRate = 0.0001 ;
+%trainOpts.weightDecay = 0.0005 ;
 trainOpts.momentum = 0.9 ;
 trainOpts.numEpochs = 20 ;
 trainOpts.plotDiagnostics = true ;
