@@ -14,4 +14,7 @@ setup_imdb();
 % batch of index you want to visualize the output
 batch = [1, 10, 100]
 visualize_prediction(net, batch);
+
+% Visual the first feature map
+visualize_feature(net);
 ```
