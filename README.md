@@ -11,5 +11,7 @@ setup_imdb();
 % If using cpu
 [net, info] = maxnet([], 'path/to/matconvnet');
 
+% batch of index you want to visualize the output
+batch = [1, 10, 100]
 visualize_prediction(net, batch);
 ```
