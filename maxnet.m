@@ -5,20 +5,20 @@ run(fullfile(fileparts(mfilename('fullpath')), matconvnet_path, 'matlab', 'vl_se
 imdb = load('imdb_lsp.mat') ;
 
 % Initialize the net
-net = initialize_maxnet() ;
-
-% Add a loss (using a custom layer)
-net = addCustomLossLayer(net, @l2LossForward, @l2LossBackward) ;
+net = initialize_alexnet() ;
 
 % Train
+lr = logspace(-1, -6, 90);
+
 trainOpts.expDir = 'output' ;
 trainOpts.gpus = gpus ;
-trainOpts.batchSize = 35 ;
-trainOpts.learningRate = 0.0001 ;
-%trainOpts.weightDecay = 0.0005 ;
+trainOpts.batchSize = 64 ;
+trainOpts.learningRate = lr ;
+trainOpts.weightDecay = 0.0005;
 trainOpts.momentum = 0.9 ;
-trainOpts.numEpochs = 60 ;
-trainOpts.plotDiagnostics = true ;
+trainOpts.nesterovUpdate = true;
+trainOpts.numEpochs = numel(lr) ;
+trainOpts.plotDiagnostics = false ;
 trainOpts.errorFunction = 'none' ;
 
 [net, info] = cnn_train(net, imdb, @getBatch, trainOpts) ;

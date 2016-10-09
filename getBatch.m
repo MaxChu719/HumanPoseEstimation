@@ -11,7 +11,7 @@ label = single(zeros(size(imdb.images.labels, 1),  size(im_name, 2)));
 shift_size = 22;
 for i = 1:numel(im_name)
     im(:,:,:,i) = single(imread(im_name{i}));
-    im(:,:,:,i) = (im(:,:,:,i) - 128)/128;
+    im(:,:,:,i) = normalize_image(im(:,:,:,i));
     label(:, i) = single(imdb.images.labels(:, batch(i)))/im_size;
     
     % Data augmentation

@@ -61,7 +61,7 @@ for i = 1:3
     imdb.images.name = [imdb.images.name, name];
     imdb.images.labels = [imdb.images.labels, labels];
     imdb.images.visibilities = [imdb.images.visibilities, visibilities];
-    imdb.images.set = [imdb.images.set, set]
+    imdb.images.set = [imdb.images.set, set];
 end
 
 save('imdb_lsp.mat', '-struct' ,'imdb');
