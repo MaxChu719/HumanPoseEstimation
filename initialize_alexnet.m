@@ -1,6 +1,7 @@
 function net = initialize_alexnet()
-%net.meta.inputSize = [220, 220, 3, 1] ;
+
 net.meta.normalization.imageSize = [220, 220, 3] ;
+net.meta.inputSize = net.meta.normalization.imageSize ;
 net.layers = { } ;
 
 id = 0;
@@ -73,7 +74,7 @@ net = add_block(net, id, 1, 1, 4096, 4096, 1, 0) ;
 id = id + 1;
 net = add_block(net, id, 1, 1, 4096, 28, 1, 0) ;
 net.layers(end) = [] ;
-net.layers{end+1} = struct('type', 'sigmoid', 'name', sprintf('sigmoid%s',id)) ;
+net.layers{end+1} = struct('type', 'sigmoid', 'name', sprintf('sigmoid%d',id)) ;
 
 % Add a loss (using a custom layer)
 net = addCustomLossLayer(net, @l2LossForward, @l2LossBackward) ;
@@ -105,12 +106,12 @@ net.layers{end+1} = struct('type', 'conv', 'name', sprintf('%s%d', name, id), ..
     'learningRate', [1 2], ...
     'weightDecay', [1 0], ...
     'opts', {convOpts}) ;
-net.layers{end+1} = struct('type', 'bnorm', 'name', sprintf('bn%s',id), ...
+net.layers{end+1} = struct('type', 'bnorm', 'name', sprintf('bn%d',id), ...
     'weights', {{ones(out, 1, 'single'), zeros(out, 1, 'single'), zeros(out, 2, 'single')}}, ...
     'epsilon', 1e-4, ...
     'learningRate', [2 1 0.1], ...
     'weightDecay', [0 0]) ;
-net.layers{end+1} = struct('type', 'relu', 'name', sprintf('relu%s',id)) ;
+net.layers{end+1} = struct('type', 'relu', 'name', sprintf('relu%d',id)) ;
 end
 
 % -------------------------------------------------------------------------

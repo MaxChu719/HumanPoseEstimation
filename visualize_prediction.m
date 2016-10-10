@@ -1,7 +1,7 @@
 function visualize_prediction(net, batch)
 imdb = load('imdb_lsp.mat');
 im_name = imdb.images.name(:,batch);
-im_size = size(imread(im_name{1}), 1)
+im_size = size(imread(im_name{1}), 1);
 
 batch_size = numel(batch);
 

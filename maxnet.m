@@ -8,7 +8,7 @@ imdb = load('imdb_lsp.mat') ;
 net = initialize_alexnet() ;
 
 % Train
-lr = logspace(-1, -6, 90);
+lr = logspace(-1, -4, 100);
 
 trainOpts.expDir = 'output' ;
 trainOpts.gpus = gpus ;

@@ -5,6 +5,7 @@ net.layers = { } ;
 
 id = 0;
 
+id = id + 1;
 net = add_block(net, id, 7, 7, 3, 64, 3, 3) ;
 net.layers{end+1} = struct('type', 'pool', 'name', sprintf('pool%d', id), ...
                            'method', 'max', ...
@@ -12,7 +13,7 @@ net.layers{end+1} = struct('type', 'pool', 'name', sprintf('pool%d', id), ...
                            'stride', 2, ...
                            'pad', 0) ;
 
-
+id = id + 1;
 net = add_block(net, id, 3, 3, 64, 128, 1, 1) ;
 net.layers{end+1} = struct('type', 'pool', 'name', sprintf('pool%d', id), ...
                            'method', 'max', ...
@@ -20,8 +21,9 @@ net.layers{end+1} = struct('type', 'pool', 'name', sprintf('pool%d', id), ...
                            'stride', 2, ...
                            'pad', 0) ;
 
-
+id = id + 1;
 net = add_block(net, id, 3, 3, 128, 256, 1, 1) ;
+id = id + 1;
 net = add_block(net, id, 3, 3, 256, 512, 1, 1) ;
 net.layers{end+1} = struct('type', 'pool', 'name', sprintf('pool%d', id), ...
                            'method', 'max', ...
@@ -29,7 +31,9 @@ net.layers{end+1} = struct('type', 'pool', 'name', sprintf('pool%d', id), ...
                            'stride', 2, ...
                            'pad', 0) ;
                        
+id = id + 1;                       
 net = add_block(net, id, 3, 3, 512, 512, 1, 1) ;
+id = id + 1;
 net = add_block(net, id, 3, 3, 512, 1024, 1, 1) ;
 net.layers{end+1} = struct('type', 'pool', 'name', sprintf('pool%d', id), ...
                            'method', 'max', ...
@@ -37,11 +41,14 @@ net.layers{end+1} = struct('type', 'pool', 'name', sprintf('pool%d', id), ...
                            'stride', 2, ...
                            'pad', 0) ;
                        
+id = id + 1;
 net = add_block(net, id, 4, 4, 1024, 4096, 1, 0) ;
+id = id + 1;
 net = add_block(net, id, 1, 1, 4096, 4096, 1, 0) ;
+id = id + 1;
 net = add_block(net, id, 1, 1, 4096, 28, 1, 0) ;
 net.layers(end) = [] ;
-net.layers(end) = [] ;
+net.layers{end+1} = struct('type', 'sigmoid', 'name', sprintf('sigmoid%d',id)) ;
 
 % Add a loss (using a custom layer)
 net = addCustomLossLayer(net, @l2LossForward, @l2LossBackward) ;
