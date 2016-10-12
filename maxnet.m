@@ -8,11 +8,11 @@ imdb = load('imdb_lsp.mat') ;
 net = initialize_alexnet() ;
 
 % Train
-lr = logspace(-1, -4, 100);
+lr = logspace(-1, -4, 200);
 
 trainOpts.expDir = 'output' ;
 trainOpts.gpus = gpus ;
-trainOpts.batchSize = 64 ;
+trainOpts.batchSize = 32 ;
 trainOpts.learningRate = lr ;
 trainOpts.weightDecay = 0.0005;
 trainOpts.momentum = 0.9 ;
