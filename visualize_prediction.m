@@ -25,7 +25,7 @@ for b = 1:batch_size
     label = single(imdb.images.labels(:, batch(b)));
     label = reshape(label, 1, 1, size(label, 1));
     loss = l2LossForward(res(end).x, label);
-    display(sprintf('loss is %f', loss));
+    display(sprintf('Image index %d: loss is %f', batch(b), loss));
 
     waitforbuttonpress;
 end

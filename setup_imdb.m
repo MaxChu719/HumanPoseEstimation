@@ -24,7 +24,7 @@ train_path = 'preprocessed_training_data/';
 val_path = 'preprocessed_testing_data/';
 test_path = 'preprocessed_testing_data/';
 
-target_size = 220;
+target_size = 224;
 preprocess_database(train_path, 'dataset/lspet_dataset/', train_size, target_size, 5);
 preprocess_database(val_path, 'dataset/lsp_dataset_original/', val_size + test_size, target_size, 4);
 

@@ -5,14 +5,14 @@ run(fullfile(fileparts(mfilename('fullpath')), matconvnet_path, 'matlab', 'vl_se
 imdb = load('imdb_lsp.mat') ;
 
 % Initialize the net
-net = initialize_alexnet() ;
+net = initialize_maxnet() ;
 
 % Train
 lr = logspace(-1, -4, 76);
 
 trainOpts.expDir = 'output' ;
 trainOpts.gpus = gpus ;
-trainOpts.batchSize = 64 ;
+trainOpts.batchSize = 1 ;
 trainOpts.learningRate = lr ;
 trainOpts.weightDecay = 0.0005;
 trainOpts.momentum = 0.9 ;

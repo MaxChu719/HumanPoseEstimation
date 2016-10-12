@@ -1,4 +1,5 @@
 preprocessed_testing_data
 preprocessed_training_data
 imdb*.mat
+imagenet*.mat
 output
