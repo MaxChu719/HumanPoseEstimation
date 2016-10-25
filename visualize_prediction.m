@@ -4,7 +4,7 @@ im_name = imdb.images.name(:,batch);
 im_size = size(imread(im_name{1}), 1);
 
 batch_size = numel(batch);
-
+opts.batchSize = 1;
 for b = 1:batch_size
     test_image = imread(im_name{b});
     im = single(test_image);
@@ -23,9 +23,9 @@ for b = 1:batch_size
     draw_joints(test_image, input_joint);
     
     label = single(imdb.images.labels(:, batch(b)));
-    label = reshape(label, 1, 1, size(label, 1));
-    loss = l2LossForward(res(end).x, label);
-    display(sprintf('Image index %d: loss is %f', batch(b), loss));
+    label = reshape(label, 1, 1, size(label, 1), 1);
+    loss = MPE(opts, label, res);
+    display(sprintf('Image index %d: MPE is %f', batch(b), loss));
 
     waitforbuttonpress;
 end

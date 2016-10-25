@@ -1,7 +1,7 @@
 function net = initialize_alexnet()
 
 net.meta.normalization.imageSize = [224, 224, 3] ;
-net.meta.inputSize = net.meta.normalization.imageSize ;
+net.meta.networkType = 'simplenn';
 net.layers = { } ;
 
 id = 0;
@@ -77,7 +77,8 @@ net.layers(end) = [] ;
 net.layers{end+1} = struct('type', 'sigmoid', 'name', sprintf('sigmoid%d',id)) ;
 
 % Add a loss (using a custom layer)
-net = addCustomLossLayer(net, @l2LossForward, @l2LossBackward) ;
+%net = addCustomLossLayer(net, @l2Loss, @l2Loss) ;
+net = addCustomLossLayer(net, @sigmoidcrossentropyloss, @sigmoidcrossentropyloss) ;
 
 % Consolidate the network, fixing any missing option
 % in the specification above.

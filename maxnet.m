@@ -5,10 +5,10 @@ run(fullfile(fileparts(mfilename('fullpath')), matconvnet_path, 'matlab', 'vl_se
 imdb = load('imdb_lsp.mat') ;
 
 % Initialize the net
-net = initialize_alexnet() ;
+net = initialize_maxnet() ;
 
 % Train
-lr = logspace(-1, -4, 76);
+lr = logspace(-1, -4, 477);
 
 trainOpts.expDir = 'output' ;
 trainOpts.gpus = gpus ;
@@ -19,7 +19,8 @@ trainOpts.momentum = 0.9 ;
 trainOpts.nesterovUpdate = true;
 trainOpts.numEpochs = numel(lr) ;
 trainOpts.plotDiagnostics = false ;
-trainOpts.errorFunction = 'none' ;
+trainOpts.errorLabels = {'MPE'} ;
+trainOpts.errorFunction = @MPE ;
 
 [net, info] = cnn_train(net, imdb, @getBatch, trainOpts) ;
 
@@ -27,11 +28,12 @@ trainOpts.errorFunction = 'none' ;
 net = maxnet_deploy(net);
 modelPath = fullfile(trainOpts.expDir, 'net-deployed.mat');
 
-switch opts.networkType
-  case 'simplenn'
-    save(modelPath, '-struct', 'net') ;
-  case 'dagnn'
-    net_ = net.saveobj() ;
-    save(modelPath, '-struct', 'net_') ;
-    clear net_ ;
+switch net.meta.networkType
+    case 'simplenn'
+        save(modelPath, '-struct', 'net') ;
+    case 'dagnn'
+        net_ = net.saveobj() ;
+        save(modelPath, '-struct', 'net_') ;
+        clear net_ ;
+end
 end

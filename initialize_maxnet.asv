@@ -38,26 +38,29 @@ net.layers{end+1} = struct('type', 'pool', 'name', sprintf('pool%d', id), ...
                            'stride', 2, ...
                            'pad', 0) ;
                        
-net = add_block(net, id, 3, 3, 256, 512, 1, 1) ; id = id + 1;
-net = add_block(net, id, 3, 3, 512, 512, 1, 1) ; id = id + 1;
-net = add_block(net, id, 3, 3, 512, 512, 1, 1) ; id = id + 1;
- 
-%net.layers{end+1} = struct('type', 'dropout', 'name', sprintf('dropout%d', id), 'rate', 0.5) ; 
-net = add_block(net, id, 4, 4, 512, 2048, 1, 0) ; id = id + 1;
+net = add_block(net, id, 3, 3, 256, 256, 1, 1) ; id = id + 1;
+net = add_block(net, id, 3, 3, 256, 256, 1, 1) ; id = id + 1;
+net = add_block(net, id, 3, 3, 256, 256, 1, 1) ; id = id + 1;
+net.layers{end+1} = struct('type', 'pool', 'name', sprintf('pool%d', id), ...
+                           'method', 'max', ...
+                           'pool', [2 2], ...
+                           'stride', 2, ...
+                           'pad', 0) ;
+                               
+net = add_block(net, id, 2, 2, 256, 1024, 1, 0) ; id = id + 1;
 net.layers{end+1} = struct('type', 'dropout', 'name', sprintf('dropout%d', id), 'rate', 0.5) ;
-net = add_block(net, id, 1, 1, 2048, 2048, 1, 0) ; id = id + 1;
-%net.layers(end) = [] ;
-%net.layers{end+1} = struct('type', 'sigmoid', 'name', sprintf('sigmoid%d',id)) ;
-net.layers{end+1} = struct('type', 'dropout', 'name', sprintf('dropout%d', id), 'rate', 0.5) ; 
-net = add_block(net, id, 1, 1, 2048, 28, 1, 0) ;
-%net.layers(end) = [] ;
+net = add_block(net, id, 1, 1, 1024, 1024, 1, 0) ; id = id + 1;
 net.layers(end) = [] ;
 net.layers{end+1} = struct('type', 'sigmoid', 'name', sprintf('sigmoid%d',id)) ;
+net = add_block(net, id, 1, 1, 1024, 28, 1, 0) ;
+net.layers(end) = [] ;
+net.layers(end) = [] ;
+%net.layers{end+1} = struct('type', 'sigmoid', 'name', sprintf('sigmoid%d',id)) ;
 
 % Add a loss (using a custom layer)
 %net = addCustomLossLayer(net, @ln_cosh, @ln_cosh) ;
-%net = addCustomLossLayer(net, @l2Loss, @l2Loss) ;
-net = addCustomLossLayer(net, @crossentropyloss, @crossentropyloss) ;
+net = addCustomLossLayer(net, @l2Loss, @l2Loss) ;
+%net = addCustomLossLayer(net, @crossentropyloss, @crossentropyloss) ;
 
 % Consolidate the network, fixing any missing option
 % in the specification above.

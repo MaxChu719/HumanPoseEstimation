@@ -6,6 +6,7 @@ im_size = size(im, 1);
 batch_size = numel(batch);
 
 for b = 1:batch_size
+    display(sprintf('Index %d', batch(b)));
     for c = 1:3
         im(:,:,c,b) = im(:,:,c,b) + imdb.images.normalization.average(c);
     end

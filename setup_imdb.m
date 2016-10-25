@@ -24,7 +24,7 @@ train_path = 'preprocessed_training_data/';
 val_path = 'preprocessed_testing_data/';
 test_path = 'preprocessed_testing_data/';
 
-target_size = 224;
+target_size = 128;
 preprocess_database(train_path, 'dataset/lspet_dataset/', train_size, target_size, 5);
 preprocess_database(val_path, 'dataset/lsp_dataset_original/', val_size + test_size, target_size, 4);
 
@@ -72,7 +72,7 @@ for i = 1:3
         %end
         
         % Organizing joints location
-        row = data_joint_csv(s,:);
+        row = data_joint_csv(file_index_offset + s,:);
         for j=0:13
             imdb.images.visibilities(j + 1, count) = row(j*3+3);
             if imdb.images.visibilities(j + 1, count) ~= 0
