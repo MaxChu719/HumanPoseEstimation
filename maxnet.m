@@ -8,7 +8,7 @@ imdb = load('imdb_lsp.mat') ;
 net = initialize_maxnet() ;
 
 % Train
-lr = logspace(-1, -4, 477);
+lr = logspace(-1, -3, 100);
 
 trainOpts.expDir = 'output' ;
 trainOpts.gpus = gpus ;
