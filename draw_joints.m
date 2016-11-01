@@ -10,7 +10,7 @@ for j = 1:14
     visibility(j) = row((j-1)*3 + 3);
 end
 
-imshow(input_im);
+imshow(input_im, 'InitialMagnification','fit');
 for i=1:size(line_index, 2)
     if visibility(line_index(i)) > 0 && visibility(line_index(i)+1) > 0
         line = imline(gca, [joints(line_index(i),:);joints(line_index(i)+1,:)]);
